@@ -158,11 +158,12 @@ func (s *SQSClient) ReceiveMessages(queueUrl string, ch chan *sqs.Message) error
 		s.Logger.Log("polling messages from queue %s", queueName)
 
 		result, err := s.Client.ReceiveMessage(&sqs.ReceiveMessageInput{
-			QueueUrl:            aws.String(queueUrl),
-			MaxNumberOfMessages: aws.Int64(s.ClientOptions.MaxNumberOfMessages),
-			WaitTimeSeconds:     aws.Int64(s.ClientOptions.WaitTimeSeconds),
-			VisibilityTimeout:   aws.Int64(s.ClientOptions.VisibilityTimeout),
-			AttributeNames:      []*string{aws.String("All")},
+			QueueUrl:              aws.String(queueUrl),
+			MaxNumberOfMessages:   aws.Int64(s.ClientOptions.MaxNumberOfMessages),
+			WaitTimeSeconds:       aws.Int64(s.ClientOptions.WaitTimeSeconds),
+			VisibilityTimeout:     aws.Int64(s.ClientOptions.VisibilityTimeout),
+			AttributeNames:        []*string{aws.String("All")},
+			MessageAttributeNames: []*string{aws.String("All")},
 		})
 
 		if err != nil {
